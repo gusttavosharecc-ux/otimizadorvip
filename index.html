@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUSTAVO VIP - Otimizador Pro</title>
     <style>
-        /* CSS - O Visual do seu App */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             background-color: #0a0a0a; 
@@ -17,13 +16,14 @@
             min-height: 100vh;
         }
         .container {
-            width: 90%;
+            width: 95%;
             max-width: 400px;
             background: #121212;
             padding: 25px;
             border-radius: 20px;
             border: 2px solid #00ff41;
             box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            text-align: center;
         }
         h1 { font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #00ff41; }
         .status-badge {
@@ -53,7 +53,7 @@
         
         .console {
             background: #000;
-            height: 120px;
+            height: 110px;
             border-radius: 10px;
             padding: 10px;
             font-family: monospace;
@@ -63,7 +63,7 @@
             border: 1px solid #222;
             margin: 15px 0;
         }
-        input {
+        input, select {
             width: 100%;
             padding: 12px;
             background: #1a1a1a;
@@ -73,7 +73,8 @@
             margin-bottom: 10px;
             outline: none;
         }
-        input:focus { border-color: #00ff41; }
+        input:focus, select:focus { border-color: #00ff41; }
+        label { font-size: 0.8rem; display: block; text-align: left; margin-bottom: 5px; color: #888; }
     </style>
 </head>
 <body>
@@ -84,20 +85,27 @@
 
         <div class="console" id="console">
             > Aguardando comando...<br>
-            > Versão 2.0 carregada.
+            > Versão 2.1 Online.
         </div>
 
         <button class="btn" onclick="iniciarOtimizacao()">OTIMIZAR AGORA</button>
 
         <hr style="border: 0.5px solid #222; margin: 20px 0;">
 
-        <h3>CONFIGURADOR DPI</h3>
+        <h3>GERADOR DE SENSI VIP</h3>
+        <label>Modelo do Celular:</label>
         <input type="text" id="modelo" placeholder="Ex: Xiaomi Poco X3">
-        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR SENSI VIP</button>
+        
+        <label>Estilo de Jogo:</label>
+        <select id="estilo">
+            <option value="desert">Focado em Desert / Sniper</option>
+            <option value="smg">Focado em SMG / Rush</option>
+        </select>
+        
+        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR CONFIGURAÇÃO</button>
     </div>
 
     <script>
-        // JavaScript - A Lógica do App
         const consoleBox = document.getElementById('console');
         const statusBadge = document.getElementById('status');
 
@@ -111,15 +119,14 @@
 
         function iniciarOtimizacao() {
             statusBadge.innerText = "STATUS: OTIMIZANDO...";
-            statusBadge.style.borderColor = "yellow";
             statusBadge.style.color = "yellow";
+            statusBadge.style.borderColor = "yellow";
 
             const etapas = [
                 "Limpando cache de aplicativos...",
                 "Otimizando núcleos do processador...",
-                "Limpando registros de latência...",
+                "Ajustando latência de rede...",
                 "Liberando Memória RAM...",
-                "Aumentando prioridade do jogo...",
                 "Finalizado! Performance aumentada."
             ];
 
@@ -137,14 +144,32 @@
 
         function gerarSensi() {
             const modelo = document.getElementById('modelo').value;
+            const estilo = document.getElementById('estilo').value;
+
             if (!modelo) {
                 alert("Por favor, digite o modelo do celular.");
                 return;
             }
-            addLog(`Gerando sensi para ${modelo}...`, "cyan");
+
+            addLog(`Analisando hardware de: ${modelo}...`, "cyan");
+            
+            // Lógica dinâmica para variar os números
+            let baseDpi = 500 + (modelo.length * 7);
+            if (estilo === "smg") baseDpi += 40;
+            
+            const dpiFinal = baseDpi + Math.floor(Math.random() * 15);
+            const geral = 94 + Math.floor(Math.random() * 6);
+            const redDot = 88 + Math.floor(Math.random() * 10);
+
             setTimeout(() => {
-                alert(`CONFIG PARA ${modelo.toUpperCase()}:\nDPI: 620\nGeral: 97\nRed Dot: 100\nMira 2x: 95\nMira 4x: 100`);
-            }, 1000);
+                alert(`CONFIG VIP PARA ${modelo.toUpperCase()}\n\n` +
+                      `DPI: ${dpiFinal}\n` +
+                      `Geral: ${geral}\n` +
+                      `Red Dot: ${redDot}\n` +
+                      `Mira 2x: 95\n` +
+                      `Mira 4x: 100\n\n` +
+                      `Modo: ${estilo.toUpperCase()}`);
+            }, 1200);
         }
     </script>
 </body>
