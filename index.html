@@ -3,82 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUSTAVO VIP - Anti-Recoil</title>
+    <title>GUSTAVO VIP V3 - MACROPAD</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #000; color: #ff0000; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 95%; max-width: 400px; background: #080808; padding: 25px; border: 1px solid #ff0000; box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); border-radius: 5px; text-align: center; }
-        .header { border-bottom: 1px solid #ff0000; margin-bottom: 20px; padding-bottom: 10px; }
-        .status-box { font-size: 0.65rem; background: #111; padding: 10px; border-left: 3px solid #ff0000; text-align: left; margin-bottom: 15px; }
-        .btn-v3 { width: 100%; padding: 15px; background: #ff0000; color: #fff; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; margin: 10px 0; }
-        .btn-v3:active { transform: scale(0.98); background: #990000; }
-        .console-v3 { background: #000; height: 150px; border: 1px solid #222; padding: 10px; font-size: 0.7rem; overflow-y: auto; text-align: left; margin-bottom: 15px; }
-        input, select { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; margin-bottom: 10px; outline: none; }
-        .warn { font-size: 0.6rem; color: #555; margin-top: 10px; }
+        .container { width: 95%; max-width: 400px; background: #080808; padding: 25px; border: 1px solid #ff0000; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); border-radius: 10px; text-align: center; }
+        .header h1 { font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 5px; }
+        .status-box { font-size: 0.7rem; background: #111; padding: 12px; border-left: 4px solid #ff0000; text-align: left; margin: 15px 0; line-height: 1.5; }
+        .console-v3 { background: #000; height: 130px; border: 1px solid #222; padding: 10px; font-size: 0.7rem; overflow-y: auto; text-align: left; margin-bottom: 15px; color: #00ff00; }
+        .btn-vip { width: 100%; padding: 15px; background: #ff0000; color: #fff; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-bottom: 10px; transition: 0.3s; }
+        .btn-vip:hover { background: #fff; color: #ff0000; }
+        input { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; margin-bottom: 15px; text-align: center; outline: none; }
+        .result-box { display: none; background: #1a1a1a; padding: 15px; border-radius: 5px; margin-top: 15px; text-align: left; font-size: 0.85rem; border: 1px dashed #ff0000; }
+        .result-box b { color: #ff0000; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <div class="header">
-            <h1 style="font-size: 1.2rem;">ANTI-RECOIL V3 ⚔️</h1>
-            <p style="font-size: 0.6rem; color: #888;">BY: GUSTTAVOSHARECC-UX</p>
+            <h1>MACROPAD V3 ⚔️</h1>
+            <p style="font-size: 0.6rem; color: #666;">ENCRYPTED BY GUSTAVO MARTINS</p>
         </div>
         
         <div class="status-box" id="status">
-            HARDWARE: RECONHECIDO<br>
-            ANTI-RECOIL: <span style="color:#555">INATIVO</span><br>
-            SENSI_STABILITY: 0%
+            SISTEMA: AGUARDANDO HARDWARE...<br>
+            MACRO_ENGINE: STANDBY<br>
+            SENSI_BOOST: 0%
         </div>
 
-        <div class="console-v3" id="console">
-            > Pronto para injeção de scripts...
+        <div class="console-v3" id="console">> Root access not required...<br>> Ready for optimization.</div>
+
+        <button class="btn-vip" onclick="ativarMacro()">INJETAR MACROPAD</button>
+
+        <hr style="border: 0.5px solid #222; margin: 15px 0;">
+
+        <input type="text" id="modelo" placeholder="MARCA E MODELO (Ex: Xiaomi Poco X3)">
+        <button class="btn-vip" style="background: #1a1a1a; border: 1px solid #ff0000;" onclick="gerarConfig()">GERAR SENSI & DPI</button>
+
+        <div class="result-box" id="resultado">
+            <b>--- CONFIGURAÇÃO ENCONTRADA ---</b><br><br>
+            DPI: <span id="res-dpi"></span><br>
+            SENSI GERAL: <span id="res-sensi"></span><br>
+            RED DOT: 100<br>
+            BOTÃO DE ATIRAR: <span id="res-botao"></span><br><br>
+            <small style="color: #888;">*Ajuste no sistema e reinicie o jogo.</small>
         </div>
-
-        <button class="btn-v3" onclick="ativarAntiRecoil()">Ativar Anti-Recoil & Lag</button>
-
-        <hr style="border: 0.5px solid #222; margin: 20px 0;">
-
-        <label style="font-size: 0.7rem; display: block; text-align: left;">CALIBRAR EIXO Y (CAPA):</label>
-        <input type="text" id="dev-model" placeholder="Seu Celular (Ex: Poco X3)">
-        
-        <button class="btn-v3" style="background: #1a1a1a; color: #ff0000; border: 1px solid #ff0000;" onclick="gerarRegedit()">Gerar Sensi Estabilizada</button>
-        
-        <p class="warn">Ajuste a DPI no sistema para melhores resultados.</p>
     </div>
 
     <script>
         const log = document.getElementById('console');
         const status = document.getElementById('status');
 
-        function writeLog(text, color = "#ff0000") {
+        function writeLog(text, color = "#00ff00") {
             log.innerHTML += `<br><span style="color:${color}">> ${text}</span>`;
             log.scrollTop = log.scrollHeight;
         }
 
-        function ativarAntiRecoil() {
-            writeLog("Iniciando Módulo de Estabilidade...", "yellow");
-            setTimeout(() => writeLog("Calibrando Eixos X/Y para Touch...", "white"), 800);
-            setTimeout(() => writeLog("Aplicando Filtro de Suavização (No-Recoil Simulation)...", "white"), 1600);
+        function ativarMacro() {
+            writeLog("Iniciando Módulo Macropad...", "#ff0000");
+            setTimeout(() => writeLog("Calibrando tempo de resposta (1ms)...", "white"), 700);
+            setTimeout(() => writeLog("Estabilizando Eixo Y para No-Recoil...", "white"), 1400);
             setTimeout(() => {
-                writeLog("INJEÇÃO CONCLUÍDA!", "#00ff00");
-                status.innerHTML = "HARDWARE: RECONHECIDO<br>ANTI-RECOIL: <span style='color:#00ff00'>ATIVO</span><br>SENSI_STABILITY: 98.4%";
-                alert("Módulo Anti-Recoil ativado! A mira agora terá 40% mais estabilidade no disparo contínuo.");
-            }, 2500);
+                writeLog("MACRO INJETADO COM SUCESSO!", "#ff0000");
+                status.innerHTML = "SISTEMA: OTIMIZADO<br>MACRO_ENGINE: ATIVO<br>SENSI_BOOST: 100%";
+                alert("Módulo Macropad Ativado! A resposta do toque foi acelerada.");
+            }, 2000);
         }
 
-        function gerarRegedit() {
-            const model = document.getElementById('dev-model').value;
-            if(!model) return alert("Insira o modelo!");
+        function gerarConfig() {
+            const modelo = document.getElementById('modelo').value;
+            if(!modelo) return alert("Digite o modelo do aparelho!");
+
+            writeLog(`Escaneando hardware: ${modelo}...`, "cyan");
             
-            writeLog(`Buscando Config para ${model}...`, "cyan");
-            
-            let dpi = 620 + (model.length * 2);
-            let y_axis = 0.45 + (Math.random() * 0.1);
-            
+            // Lógica para gerar valores baseados no nome do celular
+            const seed = modelo.length;
+            const dpi = 580 + (seed * 4);
+            const sensi = 94 + (seed % 6);
+            const botao = 40 + (seed % 15);
+
             setTimeout(() => {
-                alert(`🎯 SENSI ESTABILIZADA: ${model.toUpperCase()}\n\nDPI: ${dpi}\nVelocidade do Ponteiro: Máxima\nEstabilização Y: ${y_axis.toFixed(2)}\n\nMantenha o app aberto para o script não ser suspenso pelo sistema.`);
-            }, 1200);
+                document.getElementById('resultado').style.display = 'block';
+                document.getElementById('res-dpi').innerText = dpi;
+                document.getElementById('res-sensi').innerText = sensi;
+                document.getElementById('res-botao').innerText = botao + "%";
+                writeLog("Configuração de Sensi Gerada!", "yellow");
+            }, 1000);
         }
     </script>
 </body>
