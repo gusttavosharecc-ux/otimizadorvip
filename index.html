@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUSTAVO VIP - Otimizador Pro</title>
+    <style>
+        /* CSS - O Visual do seu App */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: #0a0a0a; 
+            color: #00ff41; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: #121212;
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #00ff41; }
+        .status-badge {
+            background: #1a1a1a;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: #00ff41;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px 0;
+        }
+        .btn:active { transform: scale(0.95); background: #00cc33; }
+        .btn-secondary { background: #333; color: #fff; }
+        
+        .console {
+            background: #000;
+            height: 120px;
+            border-radius: 10px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            overflow-y: auto;
+            text-align: left;
+            border: 1px solid #222;
+            margin: 15px 0;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 10px;
+            outline: none;
+        }
+        input:focus { border-color: #00ff41; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>GUSTAVO VIP 💎</h1>
+        <div class="status-badge" id="status">SISTEMA: PRONTO</div>
+
+        <div class="console" id="console">
+            > Aguardando comando...<br>
+            > Versão 2.0 carregada.
+        </div>
+
+        <button class="btn" onclick="iniciarOtimizacao()">OTIMIZAR AGORA</button>
+
+        <hr style="border: 0.5px solid #222; margin: 20px 0;">
+
+        <h3>CONFIGURADOR DPI</h3>
+        <input type="text" id="modelo" placeholder="Ex: Xiaomi Poco X3">
+        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR SENSI VIP</button>
+    </div>
+
+    <script>
+        // JavaScript - A Lógica do App
+        const consoleBox = document.getElementById('console');
+        const statusBadge = document.getElementById('status');
+
+        function addLog(texto, cor = "#00ff41") {
+            const span = document.createElement('span');
+            span.style.color = cor;
+            span.innerHTML = `<br>> ${texto}`;
+            consoleBox.appendChild(span);
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        function iniciarOtimizacao() {
+            statusBadge.innerText = "STATUS: OTIMIZANDO...";
+            statusBadge.style.borderColor = "yellow";
+            statusBadge.style.color = "yellow";
+
+            const etapas = [
+                "Limpando cache de aplicativos...",
+                "Otimizando núcleos do processador...",
+                "Limpando registros de latência...",
+                "Liberando Memória RAM...",
+                "Aumentando prioridade do jogo...",
+                "Finalizado! Performance aumentada."
+            ];
+
+            etapas.forEach((msg, index) => {
+                setTimeout(() => {
+                    addLog(msg);
+                    if (index === etapas.length - 1) {
+                        statusBadge.innerText = "STATUS: OTIMIZADO";
+                        statusBadge.style.color = "#00ff41";
+                        statusBadge.style.borderColor = "#00ff41";
+                    }
+                }, (index + 1) * 800);
+            });
+        }
+
+        function gerarSensi() {
+            const modelo = document.getElementById('modelo').value;
+            if (!modelo) {
+                alert("Por favor, digite o modelo do celular.");
+                return;
+            }
+            addLog(`Gerando sensi para ${modelo}...`, "cyan");
+            setTimeout(() => {
+                alert(`CONFIG PARA ${modelo.toUpperCase()}:\nDPI: 620\nGeral: 97\nRed Dot: 100\nMira 2x: 95\nMira 4x: 100`);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
