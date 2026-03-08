@@ -34,6 +34,7 @@
             border: 1px solid #333;
             margin-bottom: 20px;
             display: inline-block;
+            transition: 0.5s;
         }
         .btn {
             width: 100%;
@@ -53,7 +54,7 @@
         
         .console {
             background: #000;
-            height: 110px;
+            height: 120px;
             border-radius: 10px;
             padding: 10px;
             font-family: monospace;
@@ -73,8 +74,7 @@
             margin-bottom: 10px;
             outline: none;
         }
-        input:focus, select:focus { border-color: #00ff41; }
-        label { font-size: 0.8rem; display: block; text-align: left; margin-bottom: 5px; color: #888; }
+        label { font-size: 0.7rem; display: block; text-align: left; margin-bottom: 5px; color: #888; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -85,29 +85,33 @@
 
         <div class="console" id="console">
             > Aguardando comando...<br>
-            > Versão 2.1 Online.
+            > Versão 2.5 (Push Ativo)
         </div>
 
         <button class="btn" onclick="iniciarOtimizacao()">OTIMIZAR AGORA</button>
 
         <hr style="border: 0.5px solid #222; margin: 20px 0;">
 
-        <h3>GERADOR DE SENSI VIP</h3>
-        <label>Modelo do Celular:</label>
-        <input type="text" id="modelo" placeholder="Ex: Xiaomi Poco X3">
+        <label>Modelo do Aparelho:</label>
+        <input type="text" id="modelo" placeholder="Ex: Xiaomi, Samsung, iPhone...">
         
-        <label>Estilo de Jogo:</label>
+        <label>Modo de Combate:</label>
         <select id="estilo">
-            <option value="desert">Focado em Desert / Sniper</option>
-            <option value="smg">Focado em SMG / Rush</option>
+            <option value="desert">Desert Eagle / One Tap</option>
+            <option value="smg">SMG / Rush Intenso</option>
         </select>
         
-        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR CONFIGURAÇÃO</button>
+        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR SENSI VIP</button>
     </div>
 
     <script>
         const consoleBox = document.getElementById('console');
         const statusBadge = document.getElementById('status');
+
+        // Pedir permissão para notificações assim que abrir
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
 
         function addLog(texto, cor = "#00ff41") {
             const span = document.createElement('span');
@@ -117,26 +121,49 @@
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
+        function tocarSom() {
+            const context = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            oscillator.type = "sine";
+            oscillator.frequency.setValueAtTime(880, context.currentTime);
+            gain.gain.setValueAtTime(0.1, context.currentTime);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start();
+            oscillator.stop(context.currentTime + 0.1);
+        }
+
+        function dispararNotificacao() {
+            if (Notification.permission === "granted") {
+                new Notification("GUSTAVO VIP 💎", {
+                    body: "Otimização Concluída: Performance em 100%",
+                    icon: "https://github.com/gusttavosharecc-ux.png"
+                });
+                tocarSom();
+            }
+        }
+
         function iniciarOtimizacao() {
-            statusBadge.innerText = "STATUS: OTIMIZANDO...";
+            statusBadge.innerText = "SISTEMA: OTIMIZANDO...";
             statusBadge.style.color = "yellow";
             statusBadge.style.borderColor = "yellow";
 
             const etapas = [
-                "Limpando cache de aplicativos...",
-                "Otimizando núcleos do processador...",
-                "Ajustando latência de rede...",
-                "Liberando Memória RAM...",
-                "Finalizado! Performance aumentada."
+                "Limpando cache de sistema...",
+                "Encerrando background apps...",
+                "Estabilizando Ping...",
+                "Otimização RAM finalizada!"
             ];
 
             etapas.forEach((msg, index) => {
                 setTimeout(() => {
                     addLog(msg);
                     if (index === etapas.length - 1) {
-                        statusBadge.innerText = "STATUS: OTIMIZADO";
+                        statusBadge.innerText = "SISTEMA: OTIMIZADO";
                         statusBadge.style.color = "#00ff41";
                         statusBadge.style.borderColor = "#00ff41";
+                        dispararNotificacao();
                     }
                 }, (index + 1) * 800);
             });
@@ -147,29 +174,27 @@
             const estilo = document.getElementById('estilo').value;
 
             if (!modelo) {
-                alert("Por favor, digite o modelo do celular.");
+                alert("Digite o modelo do celular!");
                 return;
             }
 
-            addLog(`Analisando hardware de: ${modelo}...`, "cyan");
+            addLog(`Calculando DPI para ${modelo}...`, "cyan");
             
-            // Lógica dinâmica para variar os números
-            let baseDpi = 500 + (modelo.length * 7);
-            if (estilo === "smg") baseDpi += 40;
+            let baseDpi = 550 + (modelo.length * 5);
+            if (estilo === "smg") baseDpi += 60;
             
-            const dpiFinal = baseDpi + Math.floor(Math.random() * 15);
-            const geral = 94 + Math.floor(Math.random() * 6);
-            const redDot = 88 + Math.floor(Math.random() * 10);
+            const dpiFinal = baseDpi + Math.floor(Math.random() * 20);
+            const geral = 95 + Math.floor(Math.random() * 5);
 
             setTimeout(() => {
-                alert(`CONFIG VIP PARA ${modelo.toUpperCase()}\n\n` +
+                alert(`🎯 CONFIGURAÇÃO VIP ENCONTRADA\n\n` +
+                      `Celular: ${modelo.toUpperCase()}\n` +
                       `DPI: ${dpiFinal}\n` +
                       `Geral: ${geral}\n` +
-                      `Red Dot: ${redDot}\n` +
-                      `Mira 2x: 95\n` +
-                      `Mira 4x: 100\n\n` +
-                      `Modo: ${estilo.toUpperCase()}`);
-            }, 1200);
+                      `Red Dot: 100\n` +
+                      `Modo: ${estilo.toUpperCase()}\n\n` +
+                      `Aplique agora e boa partida!`);
+            }, 1000);
         }
     </script>
 </body>
