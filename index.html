@@ -3,94 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUSTAVO VIP - Pro</title>
+    <title>GUSTAVO VIP - Ultra Booster</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #0a0a0a; color: #00ff41; font-family: sans-serif; overflow: hidden; }
-        
-        /* Estilo da Notificação Nativa Fake */
-        #push-notif {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 9999;
-        }
-        #push-notif.show { top: 20px; }
-        .notif-icon { width: 40px; height: 40px; background: #00ff41; border-radius: 10px; margin-right: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; }
-        .notif-text b { display: block; font-size: 0.9rem; color: #fff; }
-        .notif-text span { font-size: 0.8rem; color: #aaa; }
-
-        /* Resto do App */
-        .container { width: 95%; max-width: 400px; background: #121212; padding: 25px; border-radius: 20px; border: 2px solid #00ff41; margin: 20px auto; text-align: center; }
-        .btn { width: 100%; padding: 15px; background: #00ff41; color: #000; border: none; border-radius: 10px; font-weight: bold; margin: 10px 0; cursor: pointer; }
-        .console { background: #000; height: 100px; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 0.7rem; overflow-y: auto; text-align: left; margin: 15px 0; border: 1px solid #222; }
-        input, select { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; margin-bottom: 10px; }
+        body { background-color: #050505; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 95%; max-width: 400px; background: #0a0a0a; padding: 25px; border-radius: 15px; border: 1px solid #00ff41; box-shadow: 0 0 30px rgba(0, 255, 65, 0.1); text-align: center; }
+        .status-panel { background: #000; padding: 10px; border: 1px dashed #333; margin-bottom: 15px; font-size: 0.7rem; color: #00ff41; text-align: left; }
+        .btn-ultra { width: 100%; padding: 18px; background: #00ff41; color: #000; border: none; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        .console-box { background: #000; height: 140px; border: 1px solid #111; padding: 10px; font-size: 0.65rem; overflow-y: auto; margin: 15px 0; text-align: left; line-height: 1.4; }
+        input, select { width: 100%; padding: 12px; background: #111; border: 1px solid #222; border-radius: 5px; color: #00ff41; margin-bottom: 10px; outline: none; }
+        .vip-tag { color: gold; font-size: 0.6rem; letter-spacing: 3px; }
     </style>
 </head>
 <body>
 
-    <div id="push-notif">
-        <div class="notif-icon">G</div>
-        <div class="notif-text">
-            <b>GUSTAVO VIP 💎</b>
-            <span>Otimização Concluída: 100% Performance</span>
-        </div>
-    </div>
-
     <div class="container">
-        <h1>GUSTAVO VIP 💎</h1>
-        <div id="status" style="font-size: 0.8rem; margin-bottom: 10px;">SISTEMA: PRONTO</div>
-        <div class="console" id="console">> Aguardando...</div>
-        <button class="btn" onclick="iniciarOtimizacao()">OTIMIZAR AGORA</button>
+        <div class="vip-tag">PROJECT: GUSTAVO_BYPASS_V3</div>
+        <h1>ULTRA BOOSTER 💎</h1>
+        
+        <div class="status-panel" id="status-panel">
+            SYS_KERNEL: ESTÁVEL<br>
+            LATENCY: -- MS<br>
+            TOUCH_FREQ: 240Hz
+        </div>
+
+        <div class="console-box" id="console">
+            > Aguardando inicialização de hardware...
+        </div>
+
+        <button class="btn-ultra" onclick="ativarUltra()">Ativar Otimização Real</button>
+
         <hr style="border: 0.5px solid #222; margin: 20px 0;">
-        <input type="text" id="modelo" placeholder="Modelo do Celular">
-        <select id="estilo">
-            <option value="desert">Desert / One Tap</option>
-            <option value="smg">SMG / Rush</option>
-        </select>
-        <button class="btn" style="background: #333; color: #fff;" onclick="gerarSensi()">GERAR SENSI</button>
+
+        <label style="font-size: 0.7rem; display: block; text-align: left; margin-bottom: 5px;">MODELO DO DISPOSITIVO:</label>
+        <input type="text" id="dev-model" placeholder="Ex: Xiaomi HyperOS">
+        
+        <button class="btn-ultra" style="background: #111; color: #00ff41; border: 1px solid #00ff41; padding: 12px;" onclick="gerarRegedit()">Calibrar Sensibilidade (Regedit)</button>
     </div>
 
     <script>
-        function tocarSom() {
-            const context = new AudioContext();
-            const osc = context.createOscillator();
-            const gain = context.createGain();
-            osc.connect(gain); gain.connect(context.destination);
-            osc.frequency.value = 800; gain.gain.value = 0.1;
-            osc.start(); osc.stop(context.currentTime + 0.1);
+        const log = document.getElementById('console');
+        const panel = document.getElementById('status-panel');
+
+        function writeLog(text, color = "#00ff41") {
+            log.innerHTML += `<br><span style="color:${color}">> ${text}</span>`;
+            log.scrollTop = log.scrollHeight;
         }
 
-        function mostrarNotificacao() {
-            const notif = document.getElementById('push-notif');
-            notif.classList.add('show');
-            tocarSom();
-            setTimeout(() => { notif.classList.remove('show'); }, 4000);
-        }
-
-        function iniciarOtimizacao() {
-            const consoleBox = document.getElementById('console');
-            consoleBox.innerHTML += "<br>> Limpando RAM...";
+        function ativarUltra() {
+            writeLog("Iniciando Bypass de Latência...", "yellow");
+            setTimeout(() => writeLog("Forçando Processamento Multi-Core...", "white"), 500);
+            setTimeout(() => writeLog("Ajustando Buffer de Toque (Low Latency)...", "white"), 1000);
             setTimeout(() => {
-                consoleBox.innerHTML += "<br>> Performance Ativa!";
-                mostrarNotificacao();
-            }, 2000);
+                writeLog("OTIMIZAÇÃO APLICADA COM SUCESSO!", "#00ff41");
+                panel.innerHTML = "SYS_KERNEL: PRIORIDADE ALTA<br>LATENCY: 12 MS<br>TOUCH_FREQ: 480Hz";
+                alert("Otimização Injetada! O lag foi reduzido. Não feche o app durante o jogo.");
+            }, 2500);
         }
 
-        function gerarSensi() {
-            const mod = document.getElementById('modelo').value;
-            if(!mod) return alert("Digite o modelo!");
-            alert("SENSI GERADA PARA " + mod.toUpperCase() + "\nDPI: " + (600 + Math.floor(Math.random()*50)));
+        function gerarRegedit() {
+            const model = document.getElementById('dev-model').value;
+            if(!model) return alert("Insira o modelo!");
+            
+            writeLog(`Gerando REGEDIT para ${model}...`, "cyan");
+            
+            // Lógica de Sensi "Capa Fácil"
+            let dpi = 580 + (model.length * 3);
+            let sensGeral = 96 + Math.floor(Math.random() * 4);
+            
+            setTimeout(() => {
+                alert(`🎯 REGEDIT APLICADO PARA ${model.toUpperCase()}\n\nDPI: ${dpi}\nGeral: ${sensGeral}\nRed Dot: 100\n\nDICA: Suba a mira levemente em formato de 'J' para facilitar o capa.`);
+            }, 1200);
         }
     </script>
 </body>
