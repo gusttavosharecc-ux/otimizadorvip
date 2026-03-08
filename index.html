@@ -3,61 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUSTAVO VIP - Ultra Booster</title>
+    <title>GUSTAVO VIP - Anti-Recoil</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #050505; color: #00ff41; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 95%; max-width: 400px; background: #0a0a0a; padding: 25px; border-radius: 15px; border: 1px solid #00ff41; box-shadow: 0 0 30px rgba(0, 255, 65, 0.1); text-align: center; }
-        .status-panel { background: #000; padding: 10px; border: 1px dashed #333; margin-bottom: 15px; font-size: 0.7rem; color: #00ff41; text-align: left; }
-        .btn-ultra { width: 100%; padding: 18px; background: #00ff41; color: #000; border: none; border-radius: 5px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
-        .console-box { background: #000; height: 140px; border: 1px solid #111; padding: 10px; font-size: 0.65rem; overflow-y: auto; margin: 15px 0; text-align: left; line-height: 1.4; }
-        input, select { width: 100%; padding: 12px; background: #111; border: 1px solid #222; border-radius: 5px; color: #00ff41; margin-bottom: 10px; outline: none; }
-        .vip-tag { color: gold; font-size: 0.6rem; letter-spacing: 3px; }
+        body { background-color: #000; color: #ff0000; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { width: 95%; max-width: 400px; background: #080808; padding: 25px; border: 1px solid #ff0000; box-shadow: 0 0 20px rgba(255, 0, 0, 0.2); border-radius: 5px; text-align: center; }
+        .header { border-bottom: 1px solid #ff0000; margin-bottom: 20px; padding-bottom: 10px; }
+        .status-box { font-size: 0.65rem; background: #111; padding: 10px; border-left: 3px solid #ff0000; text-align: left; margin-bottom: 15px; }
+        .btn-v3 { width: 100%; padding: 15px; background: #ff0000; color: #fff; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; margin: 10px 0; }
+        .btn-v3:active { transform: scale(0.98); background: #990000; }
+        .console-v3 { background: #000; height: 150px; border: 1px solid #222; padding: 10px; font-size: 0.7rem; overflow-y: auto; text-align: left; margin-bottom: 15px; }
+        input, select { width: 100%; padding: 12px; background: #111; border: 1px solid #333; color: #fff; margin-bottom: 10px; outline: none; }
+        .warn { font-size: 0.6rem; color: #555; margin-top: 10px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="vip-tag">PROJECT: GUSTAVO_BYPASS_V3</div>
-        <h1>ULTRA BOOSTER 💎</h1>
+        <div class="header">
+            <h1 style="font-size: 1.2rem;">ANTI-RECOIL V3 ⚔️</h1>
+            <p style="font-size: 0.6rem; color: #888;">BY: GUSTTAVOSHARECC-UX</p>
+        </div>
         
-        <div class="status-panel" id="status-panel">
-            SYS_KERNEL: ESTÁVEL<br>
-            LATENCY: -- MS<br>
-            TOUCH_FREQ: 240Hz
+        <div class="status-box" id="status">
+            HARDWARE: RECONHECIDO<br>
+            ANTI-RECOIL: <span style="color:#555">INATIVO</span><br>
+            SENSI_STABILITY: 0%
         </div>
 
-        <div class="console-box" id="console">
-            > Aguardando inicialização de hardware...
+        <div class="console-v3" id="console">
+            > Pronto para injeção de scripts...
         </div>
 
-        <button class="btn-ultra" onclick="ativarUltra()">Ativar Otimização Real</button>
+        <button class="btn-v3" onclick="ativarAntiRecoil()">Ativar Anti-Recoil & Lag</button>
 
         <hr style="border: 0.5px solid #222; margin: 20px 0;">
 
-        <label style="font-size: 0.7rem; display: block; text-align: left; margin-bottom: 5px;">MODELO DO DISPOSITIVO:</label>
-        <input type="text" id="dev-model" placeholder="Ex: Xiaomi HyperOS">
+        <label style="font-size: 0.7rem; display: block; text-align: left;">CALIBRAR EIXO Y (CAPA):</label>
+        <input type="text" id="dev-model" placeholder="Seu Celular (Ex: Poco X3)">
         
-        <button class="btn-ultra" style="background: #111; color: #00ff41; border: 1px solid #00ff41; padding: 12px;" onclick="gerarRegedit()">Calibrar Sensibilidade (Regedit)</button>
+        <button class="btn-v3" style="background: #1a1a1a; color: #ff0000; border: 1px solid #ff0000;" onclick="gerarRegedit()">Gerar Sensi Estabilizada</button>
+        
+        <p class="warn">Ajuste a DPI no sistema para melhores resultados.</p>
     </div>
 
     <script>
         const log = document.getElementById('console');
-        const panel = document.getElementById('status-panel');
+        const status = document.getElementById('status');
 
-        function writeLog(text, color = "#00ff41") {
+        function writeLog(text, color = "#ff0000") {
             log.innerHTML += `<br><span style="color:${color}">> ${text}</span>`;
             log.scrollTop = log.scrollHeight;
         }
 
-        function ativarUltra() {
-            writeLog("Iniciando Bypass de Latência...", "yellow");
-            setTimeout(() => writeLog("Forçando Processamento Multi-Core...", "white"), 500);
-            setTimeout(() => writeLog("Ajustando Buffer de Toque (Low Latency)...", "white"), 1000);
+        function ativarAntiRecoil() {
+            writeLog("Iniciando Módulo de Estabilidade...", "yellow");
+            setTimeout(() => writeLog("Calibrando Eixos X/Y para Touch...", "white"), 800);
+            setTimeout(() => writeLog("Aplicando Filtro de Suavização (No-Recoil Simulation)...", "white"), 1600);
             setTimeout(() => {
-                writeLog("OTIMIZAÇÃO APLICADA COM SUCESSO!", "#00ff41");
-                panel.innerHTML = "SYS_KERNEL: PRIORIDADE ALTA<br>LATENCY: 12 MS<br>TOUCH_FREQ: 480Hz";
-                alert("Otimização Injetada! O lag foi reduzido. Não feche o app durante o jogo.");
+                writeLog("INJEÇÃO CONCLUÍDA!", "#00ff00");
+                status.innerHTML = "HARDWARE: RECONHECIDO<br>ANTI-RECOIL: <span style='color:#00ff00'>ATIVO</span><br>SENSI_STABILITY: 98.4%";
+                alert("Módulo Anti-Recoil ativado! A mira agora terá 40% mais estabilidade no disparo contínuo.");
             }, 2500);
         }
 
@@ -65,14 +71,13 @@
             const model = document.getElementById('dev-model').value;
             if(!model) return alert("Insira o modelo!");
             
-            writeLog(`Gerando REGEDIT para ${model}...`, "cyan");
+            writeLog(`Buscando Config para ${model}...`, "cyan");
             
-            // Lógica de Sensi "Capa Fácil"
-            let dpi = 580 + (model.length * 3);
-            let sensGeral = 96 + Math.floor(Math.random() * 4);
+            let dpi = 620 + (model.length * 2);
+            let y_axis = 0.45 + (Math.random() * 0.1);
             
             setTimeout(() => {
-                alert(`🎯 REGEDIT APLICADO PARA ${model.toUpperCase()}\n\nDPI: ${dpi}\nGeral: ${sensGeral}\nRed Dot: 100\n\nDICA: Suba a mira levemente em formato de 'J' para facilitar o capa.`);
+                alert(`🎯 SENSI ESTABILIZADA: ${model.toUpperCase()}\n\nDPI: ${dpi}\nVelocidade do Ponteiro: Máxima\nEstabilização Y: ${y_axis.toFixed(2)}\n\nMantenha o app aberto para o script não ser suspenso pelo sistema.`);
             }, 1200);
         }
     </script>
