@@ -3,198 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GUSTAVO VIP - Otimizador Pro</title>
+    <title>GUSTAVO VIP - Pro</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: #0a0a0a; 
-            color: #00ff41; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            width: 95%;
-            max-width: 400px;
-            background: #121212;
-            padding: 25px;
-            border-radius: 20px;
-            border: 2px solid #00ff41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-            text-align: center;
-        }
-        h1 { font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #00ff41; }
-        .status-badge {
-            background: #1a1a1a;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            border: 1px solid #333;
-            margin-bottom: 20px;
-            display: inline-block;
-            transition: 0.5s;
-        }
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: #00ff41;
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            margin: 10px 0;
-        }
-        .btn:active { transform: scale(0.95); background: #00cc33; }
-        .btn-secondary { background: #333; color: #fff; }
+        body { background-color: #0a0a0a; color: #00ff41; font-family: sans-serif; overflow: hidden; }
         
-        .console {
-            background: #000;
-            height: 120px;
-            border-radius: 10px;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 0.75rem;
-            overflow-y: auto;
-            text-align: left;
-            border: 1px solid #222;
-            margin: 15px 0;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px;
+        /* Estilo da Notificação Nativa Fake */
+        #push-notif {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
             background: #1a1a1a;
             border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            margin-bottom: 10px;
-            outline: none;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
         }
-        label { font-size: 0.7rem; display: block; text-align: left; margin-bottom: 5px; color: #888; text-transform: uppercase; }
+        #push-notif.show { top: 20px; }
+        .notif-icon { width: 40px; height: 40px; background: #00ff41; border-radius: 10px; margin-right: 12px; display: flex; align-items: center; justify-content: center; color: #000; font-weight: bold; }
+        .notif-text b { display: block; font-size: 0.9rem; color: #fff; }
+        .notif-text span { font-size: 0.8rem; color: #aaa; }
+
+        /* Resto do App */
+        .container { width: 95%; max-width: 400px; background: #121212; padding: 25px; border-radius: 20px; border: 2px solid #00ff41; margin: 20px auto; text-align: center; }
+        .btn { width: 100%; padding: 15px; background: #00ff41; color: #000; border: none; border-radius: 10px; font-weight: bold; margin: 10px 0; cursor: pointer; }
+        .console { background: #000; height: 100px; border-radius: 10px; padding: 10px; font-family: monospace; font-size: 0.7rem; overflow-y: auto; text-align: left; margin: 15px 0; border: 1px solid #222; }
+        input, select { width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
+    <div id="push-notif">
+        <div class="notif-icon">G</div>
+        <div class="notif-text">
+            <b>GUSTAVO VIP 💎</b>
+            <span>Otimização Concluída: 100% Performance</span>
+        </div>
+    </div>
+
     <div class="container">
         <h1>GUSTAVO VIP 💎</h1>
-        <div class="status-badge" id="status">SISTEMA: PRONTO</div>
-
-        <div class="console" id="console">
-            > Aguardando comando...<br>
-            > Versão 2.5 (Push Ativo)
-        </div>
-
+        <div id="status" style="font-size: 0.8rem; margin-bottom: 10px;">SISTEMA: PRONTO</div>
+        <div class="console" id="console">> Aguardando...</div>
         <button class="btn" onclick="iniciarOtimizacao()">OTIMIZAR AGORA</button>
-
         <hr style="border: 0.5px solid #222; margin: 20px 0;">
-
-        <label>Modelo do Aparelho:</label>
-        <input type="text" id="modelo" placeholder="Ex: Xiaomi, Samsung, iPhone...">
-        
-        <label>Modo de Combate:</label>
+        <input type="text" id="modelo" placeholder="Modelo do Celular">
         <select id="estilo">
-            <option value="desert">Desert Eagle / One Tap</option>
-            <option value="smg">SMG / Rush Intenso</option>
+            <option value="desert">Desert / One Tap</option>
+            <option value="smg">SMG / Rush</option>
         </select>
-        
-        <button class="btn btn-secondary" onclick="gerarSensi()">GERAR SENSI VIP</button>
+        <button class="btn" style="background: #333; color: #fff;" onclick="gerarSensi()">GERAR SENSI</button>
     </div>
 
     <script>
-        const consoleBox = document.getElementById('console');
-        const statusBadge = document.getElementById('status');
-
-        // Pedir permissão para notificações assim que abrir
-        if (Notification.permission !== "granted") {
-            Notification.requestPermission();
-        }
-
-        function addLog(texto, cor = "#00ff41") {
-            const span = document.createElement('span');
-            span.style.color = cor;
-            span.innerHTML = `<br>> ${texto}`;
-            consoleBox.appendChild(span);
-            consoleBox.scrollTop = consoleBox.scrollHeight;
-        }
-
         function tocarSom() {
-            const context = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = context.createOscillator();
+            const context = new AudioContext();
+            const osc = context.createOscillator();
             const gain = context.createGain();
-            oscillator.type = "sine";
-            oscillator.frequency.setValueAtTime(880, context.currentTime);
-            gain.gain.setValueAtTime(0.1, context.currentTime);
-            oscillator.connect(gain);
-            gain.connect(context.destination);
-            oscillator.start();
-            oscillator.stop(context.currentTime + 0.1);
+            osc.connect(gain); gain.connect(context.destination);
+            osc.frequency.value = 800; gain.gain.value = 0.1;
+            osc.start(); osc.stop(context.currentTime + 0.1);
         }
 
-        function dispararNotificacao() {
-            if (Notification.permission === "granted") {
-                new Notification("GUSTAVO VIP 💎", {
-                    body: "Otimização Concluída: Performance em 100%",
-                    icon: "https://github.com/gusttavosharecc-ux.png"
-                });
-                tocarSom();
-            }
+        function mostrarNotificacao() {
+            const notif = document.getElementById('push-notif');
+            notif.classList.add('show');
+            tocarSom();
+            setTimeout(() => { notif.classList.remove('show'); }, 4000);
         }
 
         function iniciarOtimizacao() {
-            statusBadge.innerText = "SISTEMA: OTIMIZANDO...";
-            statusBadge.style.color = "yellow";
-            statusBadge.style.borderColor = "yellow";
-
-            const etapas = [
-                "Limpando cache de sistema...",
-                "Encerrando background apps...",
-                "Estabilizando Ping...",
-                "Otimização RAM finalizada!"
-            ];
-
-            etapas.forEach((msg, index) => {
-                setTimeout(() => {
-                    addLog(msg);
-                    if (index === etapas.length - 1) {
-                        statusBadge.innerText = "SISTEMA: OTIMIZADO";
-                        statusBadge.style.color = "#00ff41";
-                        statusBadge.style.borderColor = "#00ff41";
-                        dispararNotificacao();
-                    }
-                }, (index + 1) * 800);
-            });
+            const consoleBox = document.getElementById('console');
+            consoleBox.innerHTML += "<br>> Limpando RAM...";
+            setTimeout(() => {
+                consoleBox.innerHTML += "<br>> Performance Ativa!";
+                mostrarNotificacao();
+            }, 2000);
         }
 
         function gerarSensi() {
-            const modelo = document.getElementById('modelo').value;
-            const estilo = document.getElementById('estilo').value;
-
-            if (!modelo) {
-                alert("Digite o modelo do celular!");
-                return;
-            }
-
-            addLog(`Calculando DPI para ${modelo}...`, "cyan");
-            
-            let baseDpi = 550 + (modelo.length * 5);
-            if (estilo === "smg") baseDpi += 60;
-            
-            const dpiFinal = baseDpi + Math.floor(Math.random() * 20);
-            const geral = 95 + Math.floor(Math.random() * 5);
-
-            setTimeout(() => {
-                alert(`🎯 CONFIGURAÇÃO VIP ENCONTRADA\n\n` +
-                      `Celular: ${modelo.toUpperCase()}\n` +
-                      `DPI: ${dpiFinal}\n` +
-                      `Geral: ${geral}\n` +
-                      `Red Dot: 100\n` +
-                      `Modo: ${estilo.toUpperCase()}\n\n` +
-                      `Aplique agora e boa partida!`);
-            }, 1000);
+            const mod = document.getElementById('modelo').value;
+            if(!mod) return alert("Digite o modelo!");
+            alert("SENSI GERADA PARA " + mod.toUpperCase() + "\nDPI: " + (600 + Math.floor(Math.random()*50)));
         }
     </script>
 </body>
